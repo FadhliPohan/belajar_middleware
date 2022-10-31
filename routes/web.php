@@ -18,20 +18,20 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::group(['prefix' => 'admin', 'middleware' => 'auth','role:admin'], function() {
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
-     Route::get('/staff', [StaffController::class, 'index'])->name('staff');
- 
+Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'role:admin'], function () {
+    Route::get('/', [AdminController::class, 'index'])->name('admin');
+    Route::get('/staff', [StaffController::class, 'index'])->name('staff');
+
     //semua route dalam grup ini hanya bisa diakses oleh operator
 });
- 
+
 Route::middleware(['auth', 'role:staff'])->group(function () {
     Route::get('/staff', [StaffController::class, 'index'])->name('staff');
- 
+
     //semua route dalam grup ini hanya bisa diakses siswa
 });
 
-	
+
 // Route::get('/admin', [AdminController::class, 'index'])->middleware(['auth', 'role:admin']);
 
 
